@@ -3,6 +3,7 @@
 namespace App\Tenant;
 
 use App\Models\Tenant;
+use Illuminate\Support\Facades\Auth;
 
 class ManagerTenant
 {
@@ -18,7 +19,6 @@ class ManagerTenant
 
     public function subdomain()
     {
-        //http://kd.subdomain-multi-tenancy.test
         $piecesHost = explode('.', request()->getHost());
         return $piecesHost['0'];
     }
@@ -37,5 +37,13 @@ class ManagerTenant
         $subdomainMain = config('tenant.subdomain_main');
 
         return $subdomain == $subdomainMain;
+    }
+
+    public function isSubdomainUser()
+    {
+        $subdomain = $this->subdomain();
+        $userSubdomain = Auth::user()->tenant->subdomain;
+
+        return $subdomain == $userSubdomain;
     }
 }
