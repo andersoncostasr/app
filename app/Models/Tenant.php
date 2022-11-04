@@ -30,4 +30,9 @@ class Tenant extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
