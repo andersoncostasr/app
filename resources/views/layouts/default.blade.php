@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="{{ asset('css/main/app.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main/app-dark.css') }}">
 <link rel="stylesheet" href="{{ asset('css/shared/iconly.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+@stack('css')
 </head>
 
 <body>
@@ -39,6 +41,7 @@
 </div>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+@stack('js')
 </body>
 
 </html>

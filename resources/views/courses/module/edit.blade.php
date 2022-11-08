@@ -9,15 +9,16 @@
                 Opções
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                <a href="{{ route('courses.edit', $course->id) }}" class="dropdown-item">Editar
+                <a href="{{ route('courses.edit', $module->course->id) }}" class="dropdown-item">Editar
                     Curso</a>
-                <a href="{{ route('courses.edit', $course->id) }}" class="dropdown-item">Adicionar
+                <a href="{{ route('courses.edit', $module->course->id) }}" class="dropdown-item">Adicionar
                     Módulo</a>
-                <a href="{{ route('courses.destroy', $course->id) }}" class='dropdown-item'
+                <a href="{{ route('courses.destroy', $module->course->id) }}" class='dropdown-item'
                     onclick="event.preventDefault(); document.getElementById('destroy-form').submit();">
                     Deletar
                 </a>
-                <form id="destroy-form" action="{{ route('courses.destroy', $course->id) }}" method="POST" class="d-none">
+                <form id="destroy-form" action="{{ route('courses.destroy', $module->course->id) }}" method="POST"
+                    class="d-none">
                     @csrf
                     @method('DELETE')
                 </form>
@@ -32,8 +33,8 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <h4>{{ $course->name }}</h4>
-                        <p>{{ $course->description }}</p>
+                        <h4>{{ $module->course->name }}</h4>
+                        <p>{{ $module->course->description }}</p>
                     </div>
                 </div>
             </div>
@@ -56,14 +57,16 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form action="{{ route('modules.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('modules.update', $module->id) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="course_id" value="{{ $course->id }}">
-                            <label class="form-label" for="name">Novo Módulo</label>
+                            @method('PUT')
+                            <input type="hidden" name="course_id" value="{{ $module->course->id }}">
+                            <label class="form-label" for="name">Editar Módulo</label>
                             <div class="input-group mb-3">
                                 <input name="name" id="name" type="text" class="form-control form-control-lg"
                                     placeholder="Ex: Novo Módulo" aria-label="Nome do Novo Modulo"
-                                    aria-describedby="button-addon2">
+                                    aria-describedby="button-addon2" value="{{ $module->name }}">
                                 <button type="submit" class="btn btn-primary" type="button" id="button-addon2">
                                     Salvar
                                 </button>
@@ -76,7 +79,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         <div class="accordion accordion-flush" id="accordionFlushExample">
-                            @foreach ($course->modules as $module)
+                            @foreach ($module->course->modules as $module)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-heading{{ $module->id }}">
                                         <button class="acc-btn accordion-button collapsed" type="button"
@@ -96,7 +99,7 @@
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                                         style="">
                                                         <a id="redirectEdit-{{ $module->id }}"
-                                                            href="{{ route('modules.edit', [$course->id, $module->id]) }}"
+                                                            href="{{ route('modules.edit', [$module->course->id, $module->id]) }}"
                                                             class="dropdown-item">Editar</a>
 
                                                         <script>

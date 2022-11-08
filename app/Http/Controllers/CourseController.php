@@ -20,7 +20,12 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::find($id);
-        return view('courses.show', compact('course'));
+        if ($course)
+            return view('courses.show', compact('course'));
+
+        return redirect()
+            ->route('courses.index')
+            ->withMessage('Curso não encontrado');
     }
 
     public function create()
@@ -50,7 +55,12 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-        return view('courses.edit', compact('course'));
+        if ($course)
+            return view('courses.edit', compact('course'));
+
+        return redirect()
+            ->route('courses.index')
+            ->withMessage('Curso não encontrado para editar');
     }
 
     public function update(UpdateCourseRequest $request, $id)
