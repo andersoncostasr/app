@@ -12,7 +12,7 @@ class Course extends Model
     use TenantTrait;
     use HasFactory;
 
-    protected $fillable = ['name', 'descripton', 'image', 'available'];
+    protected $fillable = ['name', 'description', 'image', 'available', 'user_id', 'tenant_id'];
 
     public function user()
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +13,8 @@ Auth::routes();
 
 Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
-
-Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user']], function () {
     Route::resource('posts', PostController::class);
-});
-
-Route::get('/courses', function () {
-    return \App\Models\Course::all();
+    Route::resource('courses', CourseController::class);
 });
 
 Route::get('/', function () {
