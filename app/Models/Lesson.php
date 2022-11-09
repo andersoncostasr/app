@@ -9,7 +9,7 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'url', 'video', 'description'];
+    protected $fillable = ['module_id', 'name', 'url', 'video', 'description'];
 
     public function module()
     {

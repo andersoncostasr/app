@@ -11,8 +11,8 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
                 <a href="{{ route('courses.edit', $course->id) }}" class="dropdown-item">Editar
                     Curso</a>
-                <a href="{{ route('courses.edit', $course->id) }}" class="dropdown-item">Adicionar
-                    Módulo</a>
+                <a href="{{ route('lessons.create', $course->id) }}" class="dropdown-item">Adicionar
+                    Aula</a>
                 <a href="{{ route('courses.destroy', $course->id) }}" class='dropdown-item'
                     onclick="event.preventDefault(); document.getElementById('destroy-form').submit();">
                     Deletar
@@ -126,7 +126,9 @@
                                         data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                             @foreach ($module->lessons as $lesson)
-                                                {{ $lesson->name }}
+                                                <a
+                                                    href="{{ route('lessons.edit', [$lesson->module->course->id, $lesson->module->id, $lesson->id]) }}">
+                                                    {{ $lesson->name }}</a>
                                                 <hr>
                                             @endforeach
                                         </div>

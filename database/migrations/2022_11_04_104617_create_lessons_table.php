@@ -24,7 +24,7 @@ class CreateLessonsTable extends Migration
 
             $table->foreign('module_id')
                 ->references('id')
-                ->on('lessons')
+                ->on('modules')
                 ->onDelete('cascade');
         });
     }

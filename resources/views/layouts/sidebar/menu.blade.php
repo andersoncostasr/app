@@ -11,12 +11,12 @@
             <span>Cursos</span>
         </a>
     </li>
-    <li class="sidebar-item {{ request()->is('posts*') ? 'active' : '' }}">
+    {{-- <li class="sidebar-item {{ request()->is('posts*') ? 'active' : '' }}">
         <a href="{{ route('posts.index') }}" class='sidebar-link'>
             <i class="bi bi-grid-fill"></i>
             <span>Posts</span>
         </a>
-    </li>
+    </li> --}}
     <li class="sidebar-item">
         <a href="{{ route('logout') }}" class='sidebar-link'
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
