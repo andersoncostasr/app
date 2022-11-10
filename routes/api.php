@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CourseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/auth', [AuthController::class, 'auth']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/courses', [CourseController::class, 'index'])->name('api.courses.index');
+Route::get('/courses', [CourseController::class, 'index'])->name('api.courses.index')->middleware('auth:sanctum', 'subdomain_user');
