@@ -5,13 +5,21 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SubdomainController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::view('tenant-404', 'errors.tenant.404')->name('tenant.404');
 
 Auth::routes();
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::view('404', 'errors.tenant.404')->name('tenant.404');
+
+
 
 Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -30,10 +38,10 @@ Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdo
     Route::delete('courses/lesson/destroy/{lesson_id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/teste', function () {
-    return view('welcome');
-})->middleware('subdomain_user');
+
+
+Route::group(['prefix' => 'sub'], function () {
+    Route::get('verification', [SubdomainController::class, 'index'])->name('sub.login');
+    Route::post('verification', [SubdomainController::class, 'verification'])->name('sub.verification');
+});

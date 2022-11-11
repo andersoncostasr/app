@@ -8,22 +8,24 @@ use Illuminate\Http\Request;
 
 class TenantMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
+
     public function handle(Request $request, Closure $next)
     {
         $managerT = \app(ManagerTenant::class);
-        $tenant = $managerT->tenant();
+        $isNotSubdomain = $managerT->isNotSubdomain();
 
-        if (!$tenant && $request->url() != route('tenant.404')) {
-            return redirect()->route('tenant.404');
+        // Se isNotSubdomain retornar falso, ele verifica se o tenant existe e se não existe redireciona pra 404
+        if (!$isNotSubdomain) {
+            $tenant = $managerT->tenant();
+
+            if (!$tenant && $request->url() != route('tenant.404')) {
+                return redirect()->route('tenant.404');
+            }
+
+            return $next($request);
         }
 
+        //Obviamente o isNotSubdomain retornou true, e nós estamos no dominio principal (carrega a home welcome)
         return $next($request);
     }
 }
