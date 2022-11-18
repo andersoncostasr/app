@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'tenant.filessystems' => \App\Http\Middleware\Tenant\FilesSystems::class,
         'subdomain_main' => \App\Http\Middleware\Tenant\CheckSubdomainMain::class,
         'subdomain_user' => \App\Http\Middleware\Tenant\CheckSubdomainUser::class,
+        'user_isAdmin' => \App\Http\Middleware\isAdmin::class,
     ];
 }

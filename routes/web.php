@@ -6,6 +6,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubdomainController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,7 @@ Route::get('/', function () {
 
 Route::view('404', 'errors.tenant.404')->name('tenant.404');
 
-
-
-Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user']], function () {
+Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user', 'user_isAdmin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('posts', PostController::class);
     Route::resource('courses', CourseController::class);
@@ -36,10 +35,9 @@ Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdo
     Route::get('courses/{course_id}/modules/{module_id}/lesson/{lesson_id}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
     Route::put('courses/lesson/{lesson_id}/update', [LessonController::class, 'update'])->name('lessons.update');
     Route::delete('courses/lesson/destroy/{lesson_id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+
+    Route::resource('users', UserController::class);
 });
-
-
-
 
 Route::group(['prefix' => 'sub'], function () {
     Route::get('verification', [SubdomainController::class, 'index'])->name('sub.login');

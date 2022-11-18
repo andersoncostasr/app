@@ -11,6 +11,12 @@
             <span>Cursos</span>
         </a>
     </li>
+    <li class="sidebar-item {{ request()->is('users*') ? 'active' : '' }}">
+        <a href="{{ route('users.index') }}" class='sidebar-link'>
+            <i class="bi bi-person"></i>
+            <span>Usuários</span>
+        </a>
+    </li>
     {{-- <li class="sidebar-item {{ request()->is('posts*') ? 'active' : '' }}">
         <a href="{{ route('posts.index') }}" class='sidebar-link'>
             <i class="bi bi-grid-fill"></i>
