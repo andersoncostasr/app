@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::view('404', 'errors.tenant.404')->name('tenant.404');
 
-Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user']], function () {
+Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user', 'user_isAdmin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('posts', PostController::class);
     Route::resource('courses', CourseController::class);
