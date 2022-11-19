@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UuidTrait;
 use App\Tenant\Traits\TenantTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,8 +12,15 @@ class Course extends Model
 
     use TenantTrait;
     use HasFactory;
+    use UuidTrait;
+
+    protected $keyType = 'string';
+
 
     protected $fillable = ['name', 'description', 'image', 'available', 'user_id', 'tenant_id'];
+
+    public $incrementing = false;
+
 
     public function user()
     {

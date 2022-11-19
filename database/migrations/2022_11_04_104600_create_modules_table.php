@@ -14,8 +14,8 @@ class CreateModulesTable extends Migration
     public function up()
     {
         Schema::create('modules', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('course_id');
+            $table->uuid('id')->primary();
+            $table->uuid('course_id');
             $table->string('name');
             $table->timestamps();
 

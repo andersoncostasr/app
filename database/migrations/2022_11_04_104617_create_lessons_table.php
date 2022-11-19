@@ -14,8 +14,8 @@ class CreateLessonsTable extends Migration
     public function up()
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('module_id');
+            $table->uuid('id')->primary();
+            $table->uuid('module_id');
             $table->string('name');
             $table->string('url')->nullable();
             $table->string('video')->nullable();

@@ -2,24 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UuidTrait;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tenant extends Model
 {
-    use HasFactory;
+    use HasFactory, UuidTrait;
+
+    protected $keyType = 'string';
 
     protected $fillable = ['subdomain', 'name', 'cnpj', 'logo'];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        self::creating(function ($model) {
-            $model->uuid = (string) Uuid::generate(4);
-        });
-    }
+    // public $incrementing = false;
 
     public function users()
     {

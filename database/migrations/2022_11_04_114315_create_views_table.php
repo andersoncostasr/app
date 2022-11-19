@@ -14,9 +14,9 @@ class CreateViewsTable extends Migration
     public function up()
     {
         Schema::create('views', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('lesson_id');
+            $table->uuid('id')->primary();
+            $table->uuid('user_id');
+            $table->uuid('lesson_id');
             $table->integer('qty')->default(1);
             $table->timestamps();
 
