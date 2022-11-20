@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubdomainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Webhook\WebhookController;
+use App\Http\Controllers\Webhook\GuruController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,8 +39,18 @@ Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdo
     Route::delete('courses/lesson/destroy/{lesson_id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
 
     Route::resource('users', UserController::class);
+
+    Route::resource('webhooks', WebhookController::class);
 });
 
+
+//Webhooks Receive
+Route::group(['prefix' => 'webhook'], function () {
+    Route::post('guru/{id}', [GuruController::class, 'index']);
+});
+
+
+//Login
 Route::group(['prefix' => 'sub'], function () {
     Route::get('verification', [SubdomainController::class, 'index'])->name('sub.login');
     Route::post('verification', [SubdomainController::class, 'verification'])->name('sub.verification');
