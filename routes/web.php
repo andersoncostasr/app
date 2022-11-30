@@ -55,3 +55,7 @@ Route::group(['prefix' => 'sub'], function () {
     Route::get('verification', [SubdomainController::class, 'index'])->name('sub.login');
     Route::post('verification', [SubdomainController::class, 'verification'])->name('sub.verification');
 });
+
+Route::get('/phpinfo', function () {
+    return phpinfo();
+});
