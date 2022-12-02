@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Webhooks <a data-bs-toggle="modal" data-bs-target="#type" href="{{ route('webhooks.create') }}" class="btn btn-primary rounded-pill">Integração</a>
+Payloads <a data-bs-toggle="modal" data-bs-target="#type" href="{{ route('webhooks.index') }}" class="btn btn-primary rounded-pill">Voltar</a>
 @endsection
 
 @section('content')
@@ -22,29 +22,18 @@ Webhooks <a data-bs-toggle="modal" data-bs-target="#type" href="{{ route('webhoo
                                 <tr>
                                     <th>Nome</th>
                                     <th>Url</th>
-                                    <th>Tipo</th>
-                                    <th>Status</th>
-                                    <th>Ação</th>
+                                    <th>Recebido</th>
+                                    <th>Data</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($webhooks as $webhook)
+                                @foreach ($webhook->payloads as $payload)
                                 <tr>
-                                    <th><a href="{{ route('webhooks.show', $webhook->id) }}">{{ $webhook->name }}</a></th>
-                                    <th><input disabled type="text" class="form-control" value="{{ route('webhook.guru', $webhook->id)}}"></input></th>
-                                    <th>{{ $webhook->type }}</th>
-                                    <th>
-                                        @if($webhook->available)
-                                        <span class="badge bg-primary">ativo</span>
-                                        @elseif(!$webhook->available)
-                                        <span class="badge bg-secondary">inativo</span>
-                                        @endif
+                                    <th>{{$payload->webhook->name}}</th>
+                                    <th><input disabled type="text" class="form-control" value="{{ route('webhook.guru', $payload->webhook->id)}}"></input></th>
                                     </th>
-                                    <th>
-                                        <div class="">
-                                            <a href="{{ route('webhooks.edit', $webhook->id) }}" class="btn icon btn-primary"><i class="bi bi-pencil"></i></a>
-                                        </div>
-                                    </th>
+                                    <th>{{$payload->webhook->created_at}}</th>
+                                    <th style="max-height: 100px;">{{$payload->data}}</th>
                                 </tr>
                                 @endforeach
                             </tbody>

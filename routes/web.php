@@ -44,9 +44,9 @@ Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdo
 });
 
 
-//Webhooks Receive
+// Webhooks Receive
 Route::group(['prefix' => 'webhook'], function () {
-    Route::post('guru/{id}', [GuruController::class, 'index']);
+    Route::post('guru/{id}', [GuruController::class, 'index'])->name('webhook.guru');
 });
 
 

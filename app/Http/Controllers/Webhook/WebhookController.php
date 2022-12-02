@@ -53,6 +53,12 @@ class WebhookController extends Controller
         return view('webhooks.edit', compact('webhook'));
     }
 
+    public function show($id)
+    {
+        $webhook = Webhook::find($id);
+        return view('webhooks.show', compact('webhook'));
+    }
+
     public function update(Request $request, $id)
     {
         $data = $request->all();

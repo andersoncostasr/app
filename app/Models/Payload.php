@@ -3,24 +3,26 @@
 namespace App\Models;
 
 use App\Models\Traits\UuidTrait;
-use App\Tenant\Traits\TenantTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Webhook extends Model
+class Payload extends Model
 {
     use UuidTrait;
-    use TenantTrait;
     use HasFactory;
 
     protected $keyType = 'string';
 
-    protected $fillable = ['type', 'name', 'token', 'offer', 'available'];
+    protected $casts = [
+        'payload' => 'array',
+    ];
+
+    protected $fillable = ['tenant_id', 'webhook_id', 'type', 'data'];
 
     public $incrementing = false;
 
-    public function payloads()
+    public function webhook()
     {
-        return $this->hasMany(Payload::class);
+        return $this->belongsTo(Webhook::class);
     }
 }

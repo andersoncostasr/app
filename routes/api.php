@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Webhook\GuruController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
