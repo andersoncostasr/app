@@ -36,8 +36,10 @@ Usuários <a href="{{ route('users.create') }}" class="btn btn-primary rounded-p
                                     <th>
                                         @if($user->isAdmin)
                                         <span class="badge bg-primary">admin</span>
-                                        @elseif(!$user->isAdmin)
+                                        @elseif(!$user->isAdmin && !$user->isActive)
                                         <span class="badge bg-secondary">usuário</span>
+                                        @elseif(!$user->isAdmin && $user->isActive)
+                                        <span class="badge bg-success">usuário</span>
                                         @endif
                                     </th>
                                     <th>

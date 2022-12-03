@@ -15,7 +15,10 @@ class UserController extends Controller
     public function index()
     {
         // $users = User::where('tenant_id', auth()->user()->tenant->id)->orderBy('isAdmin', 'desc')->withTrashed()->get();
-        $users = User::where('tenant_id', auth()->user()->tenant->id)->orderBy('isAdmin', 'desc')->get();
+        $users = User::where('tenant_id', auth()->user()->tenant->id)
+            ->orderBy('isAdmin', 'desc')
+            ->orderBy('isActive', 'desc')
+            ->get();
         return view('users.index', compact('users'));
     }
 
@@ -29,6 +32,7 @@ class UserController extends Controller
         $data = $request->all();
 
         $data['isAdmin'] = (!isset($data['isAdmin'])) ? 0 : 1;
+        $data['isActive'] = (!isset($data['isActive'])) ? 0 : 1;
         $data['password'] = Hash::make($data['password']);
 
         $user = new User;
@@ -37,6 +41,7 @@ class UserController extends Controller
         $user->email = $data['email'];
         $user->password = $data['password'];
         $user->isAdmin = $data['isAdmin'];
+        $user->isActive = $data['isActive'];
         $user->save();
 
         return redirect()->route('users.index')->withSuccess('Usuário criado com sucesso!');
@@ -59,12 +64,14 @@ class UserController extends Controller
         $data = $request->all();
 
         $data['isAdmin'] = (!isset($data['isAdmin'])) ? 0 : 1;
+        $data['isActive'] = (!isset($data['isActive'])) ? 0 : 1;
         $data['password'] = Hash::make($data['password']);
 
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = $data['password'];
         $user->isAdmin = $data['isAdmin'];
+        $user->isActive = $data['isActive'];
 
         $user->update();
         return redirect()

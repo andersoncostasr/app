@@ -36,13 +36,25 @@ Novo Usuário
                             <label class="form-label" for="password">Senha</label>
                             <input type="password" name="password" id="password" class="form-control form-control-lg round" placeholder="********" value="">
                         </div>
+
                         <div class="form-group">
                             <div class="form-check">
                                 <div class="checkbox">
                                     <input name="isAdmin" type="checkbox" id="isAdmin" class="form-check-input" value="{{ $user->isAdmin }}" {{ $user->isAdmin == 1 ? ' checked' : '' }}>
                                     <label for="isAdmin">Usuário é Admin?</label>
                                     <br>
-                                    <small>Marque essa opção caso queira que seu usuário tenha acesso ao Admin.
+                                    <small>Marque essa opção para o usuário ter acesso aos conteúdos.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <div class="checkbox">
+                                    <input name="isActive" type="checkbox" id="isActive" class="form-check-input" value="{{ $user->isActive }}" {{ $user->isActive == 1 ? ' checked' : '' }}>
+                                    <label for="isActive">Usuário é Ativo?</label>
+                                    <br>
+                                    <small>Marque essa opção caso queira que seu usuário tenha acesso ao Admin.</small>
                                 </div>
                             </div>
                         </div>
