@@ -69,24 +69,16 @@ class GuruController extends Controller
         //Vamos pegar o status da venda
         $status = $data['payload']['status'];
 
-        if ($status == 'approved') {
-            $data = [];
-            $data['tenant_id'] = $tenant->id;
-            $data['name'] = $name;
-            $data['email'] = $email;
-            $data['password'] = Hash::make($tenant->default_password);
-            $data['isAdmin'] = false;
+        $data = [];
+        $data['status'] = $status;
+        $data['tenant_id'] = $tenant->id;
+        $data['name'] = $name;
+        $data['email'] = $email;
+        $data['password'] = Hash::make($tenant->default_password);
+        $data['isAdmin'] = false;
 
-            // return response()->json($data);
-            $user = CreateUserEvent::dispatch($data);
-            return response()->json($user);
-        } else {
-            return response()->json(
-                [
-                    'status_guru' => $status,
-                    'message' => 'Método não implementado',
-                ]
-            );
-        }
+        // return response()->json($data);
+        $user = CreateUserEvent::dispatch($data);
+        return response()->json($user);
     }
 }

@@ -30,7 +30,7 @@ class CreateUserListerner
         $dataUser = $event->data;
 
         $user = User::where('email', $dataUser['email'])->first();
-        if (!$user) {
+        if (!$user && $dataUser['status'] == 'approved') {
             $user = new User;
             $user->tenant_id = $dataUser['tenant_id'];
             $user->name = $dataUser['name'];
@@ -40,13 +40,15 @@ class CreateUserListerner
             $user->save();
 
             return $user;
-        } else {
-            return response()->json(
-                [
-                    'error' => 400,
-                    'message' => 'Usuário já está cadastrado: ' . $dataUser['email'],
-                ]
-            );
         }
+        if ($user && $dataUser['status'] == 'chargeback' || $dataUser['status'] == 'refunded') {
+            $user->isActive = false;
+            $user->save();
+            return $user;
+        }
+        return response()->json([
+            'error' => 400,
+            'message' => 'Usuário ja cadastrado ou status da venda não encontrado'
+        ]);
     }
 }
