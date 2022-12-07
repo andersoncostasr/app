@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -40,9 +41,14 @@ class CourseController extends Controller
 
         if ($request->file('image')) {
             $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('images/courses/' . Auth::user()->tenant_id), $filename);
-            $data['image'] = $filename;
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            $path = $file->storeAs(
+                'images/courses/' . Auth::user()->tenant->subdomain,
+                $filename
+            );
+
+            $data['image'] = $path;
         }
 
         $course = $request->user()
@@ -71,14 +77,21 @@ class CourseController extends Controller
         $data['available'] = (!isset($data['available'])) ? 0 : 1;
 
         if ($request->file('image')) {
-            if (File::exists(public_path('images/courses/' . Auth::user()->tenant_id . '/' . $course->image))) {
-                File::delete(public_path('images/courses/' . Auth::user()->tenant_id . '/' . $course->image));
+
+            $image = Storage::disk()->exists($course->image);
+            if ($image) {
+                Storage::delete($course->image);
             }
 
             $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('images/courses/' . Auth::user()->tenant_id), $filename);
-            $data['image'] = $filename;
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            $path = $file->storeAs(
+                'images/courses/' . Auth::user()->tenant->subdomain,
+                $filename
+            );
+
+            $data['image'] = $path;
         }
 
         $course->update($data);
