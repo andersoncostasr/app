@@ -4,15 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ModuleController extends Controller
 {
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|min:5|max:255',
+        ]);
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            $path = $file->storeAs(
+                Auth::user()->tenant->subdomain . '/images/courses/modules',
+                $filename
+            );
+        }
+
         $module = new Module;
         $module->course_id = $request->course_id;
         $module->name = $request->name;
+        $module->image = $path;
         $module->save();
 
         if ($module)
@@ -32,6 +50,29 @@ class ModuleController extends Controller
     public function update(Request $request, $id)
     {
         $module = Module::find($id);
+
+        $request->validate([
+            'name' => 'required|min:5|max:255',
+        ]);
+
+        if ($request->file('image')) {
+
+            $image = Storage::disk()->exists($module->image);
+            if ($image) {
+                Storage::delete($module->image);
+            }
+
+            $file = $request->file('image');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            $path = $file->storeAs(
+                Auth::user()->tenant->subdomain . '/images/courses/modules',
+                $filename
+            );
+
+            $module->image = $path;
+        }
+
         $module->name = $request->name;
         $module->save();
         return redirect()->route('courses.show', $request->course_id);
