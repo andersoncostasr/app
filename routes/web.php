@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\LessonController;
@@ -25,6 +26,7 @@ Route::view('404', 'errors.tenant.404')->name('tenant.404');
 Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user', 'user_isAdmin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('posts', PostController::class);
+    Route::resource('categories', CategoryController::class);
     Route::resource('courses', CourseController::class);
 
     Route::post('courses/modules/store', [ModuleController::class, 'store'])->name('modules.store');
