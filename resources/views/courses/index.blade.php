@@ -20,7 +20,7 @@ Cursos <a href="{{ route('courses.create') }}" class="btn btn-primary rounded-pi
                     @if ($course->image)
                     <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image) }}" class="card-img-top img-fluid" alt="{{ $course->name }}">
                     @else
-                    <img src="{{ asset('images/courses/no-image.png') }}" class="card-img-top img-fluid" alt="singleminded">
+                    <img src="{{env('AWS_IMAGE_DEFAULT')}}" class="card-img-top img-fluid" alt="no-image">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $course->name }}</h5>

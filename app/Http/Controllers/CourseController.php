@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Courses\StoreCourseRequest;
 use App\Http\Requests\Courses\UpdateCourseRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Illuminate\Support\Facades\File;
@@ -31,12 +32,14 @@ class CourseController extends Controller
 
     public function create()
     {
-        return view('courses.create');
+        $categories = Category::all();
+        return view('courses.create', compact('categories'));
     }
 
     public function store(StoreCourseRequest $request)
     {
         $data = $request->all();
+
         $data['available'] = (!isset($data['available'])) ? 0 : 1;
 
         if ($request->file('image')) {
@@ -61,8 +64,9 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
+        $categories = Category::all();
         if ($course)
-            return view('courses.edit', compact('course'));
+            return view('courses.edit', compact('course', 'categories'));
 
         return redirect()
             ->route('courses.index')

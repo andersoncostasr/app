@@ -17,6 +17,8 @@ class ModuleController extends Controller
             'name' => 'required|min:5|max:255',
         ]);
 
+        $module = new Module;
+
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
@@ -25,12 +27,13 @@ class ModuleController extends Controller
                 Auth::user()->tenant->subdomain . '/images/courses/modules',
                 $filename
             );
+
+            $module->image = $path;
         }
 
-        $module = new Module;
+
         $module->course_id = $request->course_id;
         $module->name = $request->name;
-        $module->image = $path;
         $module->save();
 
         if ($module)

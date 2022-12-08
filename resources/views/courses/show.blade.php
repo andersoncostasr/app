@@ -29,8 +29,14 @@ Gestão do Curso
     <div class="col-12 col-md-5">
         <div class="card">
             <div class="card-content">
+                @if ($course->image)
+                <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image) }}" class="card-img-top img-fluid" alt="{{ $course->name }}">
+                @else
+                <img src="{{env('AWS_IMAGE_DEFAULT')}}" class="card-img-top img-fluid" alt="no-image">
+                @endif
                 <div class="card-body">
-                    <h4>{{ $course->name }}</h4>
+                    <h4 class="mt-3">{{ $course->name }}</h4>
+                    <h6 class="card-subtitle mt-1 mb-3">{{$course->category->name}}</h6>
                     <p>{{ $course->description }}</p>
                 </div>
             </div>
@@ -86,7 +92,7 @@ Gestão do Curso
                                         <img style="width: 50px;" src="{{ asset(env('AWS_BUCKET_URL') . $module->image) }}" class="img-fluid" alt="{{ $module->name }}">
                                         {{ $module->name }}
                                         @else
-                                        <img style="width: 50px;" src="{{ asset('images/courses/no-image.png') }}" class="img-fluid" alt="no-image">
+                                        <img style="width: 50px;" src="{{ env('AWS_IMAGE_DEFAULT') }}" class="img-fluid" alt="no-image">
                                         {{ $module->name }}
                                         @endif
                                     </span>
