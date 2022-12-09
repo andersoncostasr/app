@@ -13,7 +13,7 @@ class Lesson extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['module_id', 'name', 'url', 'video', 'description'];
+    protected $fillable = ['module_id', 'name', 'url', 'video', 'description', 'image'];
 
     public function module()
     {
