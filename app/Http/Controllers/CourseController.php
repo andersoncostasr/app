@@ -106,6 +106,33 @@ class CourseController extends Controller
     public function destroy($id)
     {
         $course = Course::find($id);
+
+        //Apagando as Imagens do Curso
+        $image = Storage::disk()->exists($course->image);
+        if ($image) {
+            Storage::delete($course->image);
+        }
+
+        //Apagando as imagens e arquivos dos modulos e das aulas
+        foreach ($course->modules as $module) {
+            $image = Storage::disk()->exists($module->image);
+            if ($image) {
+                Storage::delete($module->image);
+            }
+            foreach ($module->lessons as $lesson) {
+                $image = Storage::disk()->exists($lesson->image);
+                if ($image) {
+                    Storage::delete($lesson->image);
+                }
+                foreach ($lesson->attacchments as $attacchment) {
+                    $file = Storage::disk()->exists($attacchment->path);
+                    if ($file) {
+                        Storage::delete($attacchment->path);
+                    }
+                }
+            }
+        }
+
         $course->delete();
         return redirect()
             ->route('courses.index')

@@ -86,6 +86,10 @@ class LessonController extends Controller
     public function destroy($id)
     {
         $lesson = Lesson::find($id);
+        $image = Storage::disk()->exists($lesson->image);
+        if ($image) {
+            Storage::delete($lesson->image);
+        }
         $lesson->delete();
         return redirect()->route('courses.show', $lesson->module->course->id)->withSuccess('Aula deletada com sucesso!');
     }

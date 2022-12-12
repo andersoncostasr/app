@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attacchment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AttacchemntController extends Controller
 {
@@ -40,8 +41,11 @@ class AttacchemntController extends Controller
     {
 
         $attacchement = Attacchment::find($id);
+        $file = Storage::disk()->exists($attacchement->path);
+        if ($file) {
+            Storage::delete($attacchement->path);
+        }
         $attacchement->delete();
-
         return redirect()->back()->withSuccess('Anexo deletado com sucesso!');
     }
 }

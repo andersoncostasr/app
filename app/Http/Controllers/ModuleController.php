@@ -85,6 +85,10 @@ class ModuleController extends Controller
     public function destroy($id)
     {
         $module = Module::find($id);
+        $image = Storage::disk()->exists($module->image);
+        if ($image) {
+            Storage::delete($module->image);
+        }
         $module->delete();
         return redirect()
             ->route('courses.show', $module->course->id)
