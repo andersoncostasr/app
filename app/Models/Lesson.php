@@ -19,4 +19,9 @@ class Lesson extends Model
     {
         return $this->belongsTo(Module::class);
     }
+
+    public function attacchments()
+    {
+        return $this->hasMany(Attacchment::class);
+    }
 }

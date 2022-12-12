@@ -47,7 +47,7 @@ class CourseController extends Controller
             $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
 
             $path = $file->storeAs(
-                Auth::user()->tenant->subdomain . '/images/courses/',
+                Auth::user()->tenant->subdomain . '/images/courses',
                 $filename
             );
 

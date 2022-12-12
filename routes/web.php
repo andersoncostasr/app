@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttacchemntController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ModuleController;
@@ -39,6 +40,9 @@ Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdo
     Route::get('courses/{course_id}/modules/{module_id}/lesson/{lesson_id}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
     Route::put('courses/lesson/{lesson_id}/update', [LessonController::class, 'update'])->name('lessons.update');
     Route::delete('courses/lesson/destroy/{lesson_id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+
+    Route::post('courses/lesson/{lesson_id}/attacchement', [AttacchemntController::class, 'store'])->name('attacchment.store');
+    Route::delete('courses/lesson/attacchement/{attacchement_id}/destroy', [AttacchemntController::class, 'destroy'])->name('attacchment.destroy');
 
     Route::resource('users', UserController::class);
 
