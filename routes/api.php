@@ -26,9 +26,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/courses', [CourseController::class, 'index'])->name('api.courses.index')->middleware('auth:sanctum', 'subdomain_user');
 
 Route::group(['middleware' => ['auth:sanctum', 'subdomain_user']], function () {
+    Route::get('/categories', [CourseController::class, 'categories'])->name('api.categories.index');
     Route::get('/courses', [CourseController::class, 'index'])->name('api.courses.index');
     Route::get('/course/{id}', [CourseController::class, 'show'])->name('api.courses.show');
     Route::get('/course/{id}/modules', [CourseController::class, 'modules'])->name('api.courses.modules');
     Route::get('/course/module/{id}/lessons', [CourseController::class, 'lessons'])->name('api.courses.lessons');
     Route::get('/course/module/lesson/{id}', [CourseController::class, 'lesson'])->name('api.courses.lesson');
+    Route::get('/course/module/lesson/{id}/attacchments', [CourseController::class, 'attacchments'])->name('api.courses.lesson.attacchments');
 });
