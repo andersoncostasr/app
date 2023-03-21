@@ -32,6 +32,10 @@ Novo Usuário
                             <label class="form-label" for="description">Descrição</label>
                             <textarea name="description" class="form-control" id="description" rows="5" placeholder="Aprenda o passo a passo para iniciar!"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label" for="name">Ordem da Categoria</label>
+                            <input type="text" name="order" id="order" class="form-control form-control-lg round" placeholder="0" value="0">
+                        </div>
                         <div class="mt-5">
                             <div class="form-group">
                                 <a href="{{ route('categories.index') }}" class="btn btn-light rounded-pill">Cancelar</a>

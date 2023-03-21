@@ -33,6 +33,10 @@ Editar Categoria
                             <label class="form-label" for="description">Descrição</label>
                             <textarea name="description" class="form-control" id="description" rows="5" placeholder="Aprenda o passo a passo para iniciar!">{{$category->description}}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label" for="name">Ordem da Categoria</label>
+                            <input type="text" name="order" id="order" class="form-control form-control-lg round" placeholder="0" value="{{$category->order}}">
+                        </div>
                         <div class="mt-5">
                             <div class="form-group">
                                 <a href="{{ route('categories.destroy', $category->id) }}" class='btn btn-outline-danger rounded-pill' onclick="event.preventDefault(); document.getElementById('destroy-category').submit();">
@@ -54,3 +58,12 @@ Editar Categoria
     @method('DELETE')
 </form>
 @endsection
+
+@push('css')
+<style>
+    #order {
+        max-width: 60px;
+    }
+
+</style>
+@endpush

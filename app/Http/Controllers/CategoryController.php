@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::all()->sortBy("order");
         return view('category.index', compact('categories'));
     }
 
@@ -22,6 +22,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:5|max:100',
+            'order' => 'required|min:1|max:100',
         ]);
 
         $data = $request->all();
@@ -29,6 +30,7 @@ class CategoryController extends Controller
         $category = new Category;
         $category->name = $data['name'];
         $category->description = $data['description'];
+        $category->order = $data['order'];
         $category->user_id = $data['user_id'];
         $category->save();
 
@@ -45,6 +47,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:5|max:100',
+            'order' => 'required|min:1|max:100',
         ]);
 
         $data = $request->all();
@@ -52,6 +55,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->name = $data['name'];
         $category->description = $data['description'];
+        $category->order = $data['order'];
         $category->user_id = $data['user_id'];
         $category->save();
 
