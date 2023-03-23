@@ -15,7 +15,7 @@ class CourseController extends Controller
 
     public function categories()
     {
-        $categories = Category::all()->sortBy("order");
+        $categories = Category::orderBy('order')->get();
         $courses = array('name' => 'courses');
 
         foreach ($categories as $category) {
