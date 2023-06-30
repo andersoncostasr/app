@@ -53,8 +53,8 @@ Editar Curso
         <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-content">
-                    @if ($course->image)
-                    <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image) }}" class="card-img-top img-fluid mb-3" alt="{{ $course->name }}">
+                    @if ($course->image_int)
+                    <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image_int) }}" class="card-img-top img-fluid mb-3" alt="{{ $course->name }}">
                     @else
                     <img src="{{ env('AWS_IMAGE_DEFAULT') }}" class="card-img-top img-fluid mb-3" alt="no-image">
                     @endif
