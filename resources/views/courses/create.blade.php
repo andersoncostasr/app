@@ -49,8 +49,12 @@ Novo Curso
                 <div class="card-content">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="image" class="form-label">Imagem de Capa</label>
+                            <label for="image" class="form-label">Imagem de Capa na Lista</label>
                             <input name="image" class="form-control form-control-lg" id="image" type="file">
+                        </div>
+                        <div class="form-group">
+                            <label for="image_int" class="form-label">Imagem de Capa Interna</label>
+                            <input name="image_int" class="form-control form-control-lg" id="image_int" type="file">
                         </div>
                         <div class="form-group mt-5">
                             <div class="form-check">

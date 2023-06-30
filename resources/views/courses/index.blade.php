@@ -18,7 +18,7 @@ Cursos <a href="{{ route('courses.create') }}" class="btn btn-primary rounded-pi
             <div class="card-content">
                 <a href="{{ route('courses.show', $course->id) }}">
                     @if ($course->image)
-                    <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image) }}" class="card-img-top img-fluid" alt="{{ $course->name }}">
+                    <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image_int) }}" class="card-img-top img-fluid" alt="{{ $course->name }}">
                     @else
                     <img src="{{env('AWS_IMAGE_DEFAULT')}}" class="card-img-top img-fluid" alt="no-image">
                     @endif

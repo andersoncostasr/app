@@ -54,6 +54,18 @@ class CourseController extends Controller
             $data['image'] = $path;
         }
 
+        if ($request->file('image_int')) {
+            $file = $request->file('image_int');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            $path = $file->storeAs(
+                Auth::user()->tenant->subdomain . '/images/courses',
+                $filename
+            );
+
+            $data['image_int'] = $path;
+        }
+
         $course = $request->user()
             ->courses()
             ->create($data);
@@ -96,6 +108,24 @@ class CourseController extends Controller
             );
 
             $data['image'] = $path;
+        }
+
+        if ($request->file('image_int')) {
+
+            $image = Storage::disk()->exists($course->image_int);
+            if ($image) {
+                Storage::delete($course->image_int);
+            }
+
+            $file = $request->file('image_int');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            $path = $file->storeAs(
+                Auth::user()->tenant->subdomain . '/images/courses',
+                $filename
+            );
+
+            $data['image_int'] = $path;
         }
 
         $course->update($data);

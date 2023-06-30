@@ -17,7 +17,7 @@ class Course extends Model
     protected $keyType = 'string';
 
 
-    protected $fillable = ['name', 'description', 'image', 'available', 'user_id', 'tenant_id', 'category_id'];
+    protected $fillable = ['name', 'description', 'image', 'image_int', 'available', 'user_id', 'tenant_id', 'category_id'];
 
     public $incrementing = false;
 

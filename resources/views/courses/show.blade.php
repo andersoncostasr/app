@@ -12,9 +12,10 @@ Gestão do Curso
                 Curso</a>
             <a href="{{ route('lessons.create', $course->id) }}" class="dropdown-item">Adicionar
                 Aula</a>
-            <a href="{{ route('courses.destroy', $course->id) }}" class='dropdown-item' onclick="event.preventDefault(); document.getElementById('destroy-form').submit();">
-                Deletar
-            </a>
+            {{-- <a href="{{ route('courses.destroy', $course->id) }}" class='dropdown-item' onclick="event.preventDefault(); document.getElementById('destroy-form').submit();">
+            Deletar
+            </a> --}}
+            <a class='dropdown-item' onclick='deleteAlert()'>Deletar</a>
             <form id="destroy-form" action="{{ route('courses.destroy', $course->id) }}" method="POST" class="d-none">
                 @csrf
                 @method('DELETE')
@@ -29,8 +30,8 @@ Gestão do Curso
     <div class="col-12 col-md-5">
         <div class="card">
             <div class="card-content">
-                @if ($course->image)
-                <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image) }}" class="card-img-top img-fluid" alt="{{ $course->name }}">
+                @if ($course->image_int)
+                <img src="{{ asset(env('AWS_BUCKET_URL') . $course->image_int) }}" class="card-img-top img-fluid" alt="{{ $course->name }}">
                 @else
                 <img src="{{env('AWS_IMAGE_DEFAULT')}}" class="card-img-top img-fluid" alt="no-image">
                 @endif
@@ -156,4 +157,24 @@ Gestão do Curso
     }
 
 </style>
+@endpush
+
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteAlert() {
+        Swal.fire({
+            title: 'Tem Certeza?'
+            , html: '<a class="btn btn-danger" onclick="deleteCourse()">Deletar</a>'
+            , confirmButtonText: 'Fechar'
+
+        })
+    }
+
+    function deleteCourse() {
+        document.getElementById('destroy-form').submit();
+    }
+
+</script>
 @endpush

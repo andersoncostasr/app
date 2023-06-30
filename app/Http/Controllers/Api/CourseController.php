@@ -47,10 +47,11 @@ class CourseController extends Controller
 
         foreach ($modules as $module) {
             $lessons_array = (array) $module->lessons;
+            $lessons_array = $lessons_array;
             array_push($lessons_array, $lessons);
         }
 
-        return response()->json($modules);
+        return response()->json($modules->sortBy('created_at'));
     }
 
     public function module($moduleId)
