@@ -33,7 +33,7 @@ class StoreCourseRequest extends FormRequest
                 'unique:courses',
                 'min:3',
                 'max:100',
-                new TenantUnique('courses', $this->segment(2)),
+                // new TenantUnique('courses', $this->segment(2)),
             ],
             'description' => [
                 'required',
