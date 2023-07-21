@@ -21,6 +21,7 @@ Webhooks <a data-bs-toggle="modal" data-bs-target="#type" href="{{ route('webhoo
                             <thead>
                                 <tr>
                                     <th>Nome</th>
+                                    <th>Url</th>
                                     <th>Tipo</th>
                                     <th>Status</th>
                                     <th>Ação</th>
@@ -29,7 +30,8 @@ Webhooks <a data-bs-toggle="modal" data-bs-target="#type" href="{{ route('webhoo
                             <tbody>
                                 @foreach ($webhooks as $webhook)
                                 <tr>
-                                    <th>{{ $webhook->name }}</th>
+                                    <th><a href="{{ route('webhooks.show', $webhook->id) }}">{{ $webhook->name }}</a></th>
+                                    <th><input disabled type="text" class="form-control" value="{{ route('webhook.guru', $webhook->id)}}"></input></th>
                                     <th>{{ $webhook->type }}</th>
                                     <th>
                                         @if($webhook->available)

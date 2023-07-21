@@ -17,7 +17,7 @@ class Course extends Model
     protected $keyType = 'string';
 
 
-    protected $fillable = ['name', 'description', 'image', 'available', 'user_id', 'tenant_id'];
+    protected $fillable = ['name', 'description', 'image', 'image_int', 'available', 'user_id', 'tenant_id', 'category_id'];
 
     public $incrementing = false;
 
@@ -35,5 +35,10 @@ class Course extends Model
     public function modules()
     {
         return $this->hasMany(Module::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

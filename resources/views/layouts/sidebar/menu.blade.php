@@ -5,6 +5,12 @@
             <span>Dashboard</span>
         </a>
     </li>
+    <li class="sidebar-item {{ request()->is('categories*') ? 'active' : '' }}">
+        <a href="{{ route('categories.index') }}" class='sidebar-link'>
+            <i class="bi bi-bookmarks-fill"></i>
+            <span>Categorias</span>
+        </a>
+    </li>
     <li class="sidebar-item {{ request()->is('courses*') ? 'active' : '' }}">
         <a href="{{ route('courses.index') }}" class='sidebar-link'>
             <i class="bi bi-person-video3"></i>

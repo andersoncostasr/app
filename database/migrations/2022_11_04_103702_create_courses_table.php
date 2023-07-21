@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('tenant_id');
             $table->uuid('user_id');
+            $table->uuid('category_id');
             $table->string('name')->unique();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
@@ -32,6 +33,10 @@ class CreateCoursesTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories');
         });
     }
 

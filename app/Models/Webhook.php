@@ -18,4 +18,9 @@ class Webhook extends Model
     protected $fillable = ['type', 'name', 'token', 'offer', 'available'];
 
     public $incrementing = false;
+
+    public function payloads()
+    {
+        return $this->hasMany(Payload::class);
+    }
 }

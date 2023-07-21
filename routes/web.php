@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttacchemntController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\LessonController;
@@ -25,6 +27,7 @@ Route::view('404', 'errors.tenant.404')->name('tenant.404');
 Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdomain_user', 'user_isAdmin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('posts', PostController::class);
+    Route::resource('categories', CategoryController::class);
     Route::resource('courses', CourseController::class);
 
     Route::post('courses/modules/store', [ModuleController::class, 'store'])->name('modules.store');
@@ -38,15 +41,18 @@ Route::group(['prefix' => '', 'namespace' => '', 'middleware' => ['auth', 'subdo
     Route::put('courses/lesson/{lesson_id}/update', [LessonController::class, 'update'])->name('lessons.update');
     Route::delete('courses/lesson/destroy/{lesson_id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
 
+    Route::post('courses/lesson/{lesson_id}/attacchement', [AttacchemntController::class, 'store'])->name('attacchment.store');
+    Route::delete('courses/lesson/attacchement/{attacchement_id}/destroy', [AttacchemntController::class, 'destroy'])->name('attacchment.destroy');
+
     Route::resource('users', UserController::class);
 
     Route::resource('webhooks', WebhookController::class);
 });
 
 
-//Webhooks Receive
+// Webhooks Receive
 Route::group(['prefix' => 'webhook'], function () {
-    Route::post('guru/{id}', [GuruController::class, 'index']);
+    Route::post('guru/{id}', [GuruController::class, 'index'])->name('webhook.guru');
 });
 
 
@@ -54,4 +60,8 @@ Route::group(['prefix' => 'webhook'], function () {
 Route::group(['prefix' => 'sub'], function () {
     Route::get('verification', [SubdomainController::class, 'index'])->name('sub.login');
     Route::post('verification', [SubdomainController::class, 'verification'])->name('sub.verification');
+});
+
+Route::get('/phpinfo', function () {
+    return phpinfo();
 });
