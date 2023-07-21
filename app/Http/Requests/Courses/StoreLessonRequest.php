@@ -29,7 +29,6 @@ class StoreLessonRequest extends FormRequest
                 'required',
                 'min:5',
                 'max:100',
-                new TenantUnique('courses', $this->segment(2)),
             ],
             'module_id' => [
                 'required'
